@@ -1,5 +1,6 @@
 ---
-title: "MCP setup"
+title: "MCP & REST"
+sidebarTitle: "MCP setup"
 description: "Add SmartScout as an MCP server in Cursor, Claude, and Codex — same gateway as the REST API."
 icon: "plug"
 ---
@@ -13,6 +14,10 @@ SmartScout is served from a single gateway that speaks **both MCP and REST**. On
 | **Auth** | `Authorization: Bearer $SMARTSCOUT_API_KEY` (REST; some MCP clients also accept Bearer) |
 
 Replace `$SMARTSCOUT_API_KEY` with the key issued to you (placeholder form: `ssk_...`). Do not commit real keys.
+
+<Note>
+Mintlify reserves the `/mcp` path on docs sites for its own MCP endpoint. This page lives at `/mcp-setup` — the SmartScout gateway MCP URL below is separate.
+</Note>
 
 ## Cursor
 
