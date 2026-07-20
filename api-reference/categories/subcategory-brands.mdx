@@ -17,7 +17,7 @@ Top brands within a subcategory with revenue over time.
 ## Example
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"tool": "smartscout_subcategory_brands", "params": {"subcategory_id": 3375251}}'

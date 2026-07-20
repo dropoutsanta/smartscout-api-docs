@@ -31,12 +31,16 @@
       {
         "label": "Pricing",
         "href": "/pricing"
+      },
+      {
+        "label": "MCP",
+        "href": "/mcp"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Request access",
-      "href": "/pricing"
+      "label": "Quickstart",
+      "href": "/quickstart"
     }
   },
   "navigation": {
@@ -49,6 +53,7 @@
             "pages": [
               "index",
               "quickstart",
+              "mcp",
               "authentication",
               "pricing",
               "errors"
@@ -135,6 +140,10 @@
           {
             "label": "Quickstart",
             "href": "/quickstart"
+          },
+          {
+            "label": "MCP setup",
+            "href": "/mcp"
           },
           {
             "label": "API reference",

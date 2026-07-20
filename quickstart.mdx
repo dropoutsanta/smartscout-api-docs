@@ -4,17 +4,21 @@ description: "From API key to a full brand dossier in a few minutes."
 icon: "bolt"
 ---
 
-<Steps>
-  <Step title="Get your credentials">
-    After you subscribe (\$999/mo), you receive:
+The SmartScout gateway is both an **MCP server** and a **REST API**. Same base URL and API key for both. Prefer [MCP setup](/mcp) for agents; use REST below for scripts and backends.
 
-    - **Base URL** — e.g. `https://api.example.com`
-    - **API key** — Bearer token for all requests
+<Steps>
+  <Step title="Set your API key">
+    Base URL is fixed. You only need the API key issued to you:
 
     ```bash
-    export SMARTSCOUT_API_BASE="https://api.example.com"   # issued at signup
-    export SMARTSCOUT_API_KEY="ssk_live_..."               # issued at signup
+    export SMARTSCOUT_API_KEY="ssk_..."   # issued privately with your plan
     ```
+
+    | | |
+    | --- | --- |
+    | **Base URL** | `https://smartscout-mcp.fly.dev` |
+    | **MCP** | `https://smartscout-mcp.fly.dev/mcp?token=$SMARTSCOUT_API_KEY` |
+    | **REST call** | `POST https://smartscout-mcp.fly.dev/api/v1/call` |
 
     <Warning>Keep keys server-side. Never ship them in browser or mobile apps.</Warning>
   </Step>
@@ -25,7 +29,7 @@ icon: "bolt"
     <CodeGroup>
 
     ```bash cURL
-    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+    curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
       -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{
@@ -37,7 +41,7 @@ icon: "bolt"
     ```python Python
     import os, requests
 
-    BASE = os.environ["SMARTSCOUT_API_BASE"]
+    BASE = "https://smartscout-mcp.fly.dev"
     HEADERS = {"Authorization": f"Bearer {os.environ['SMARTSCOUT_API_KEY']}"}
 
     r = requests.post(
@@ -53,7 +57,7 @@ icon: "bolt"
     ```
 
     ```javascript Node
-    const BASE = process.env.SMARTSCOUT_API_BASE;
+    const BASE = "https://smartscout-mcp.fly.dev";
     const headers = {
       Authorization: `Bearer ${process.env.SMARTSCOUT_API_KEY}`,
       "Content-Type": "application/json",
@@ -82,7 +86,7 @@ icon: "bolt"
     Prefer **one** `brand_report` call over many small tools:
 
     ```bash
-    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+    curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
       -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{
@@ -102,13 +106,13 @@ icon: "bolt"
 
     ```bash
     # 1) Find category ID
-    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+    curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
       -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{"tool":"smartscout_search_subcategories","params":{"limit":50}}'
 
     # 2) Brands above $1M / month in that category
-    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+    curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
       -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{
@@ -128,14 +132,14 @@ icon: "bolt"
 ## Next steps
 
 <CardGroup cols={2}>
+  <Card title="MCP setup" icon="plug" href="/mcp">
+    Add SmartScout in Cursor, Claude, and Codex.
+  </Card>
   <Card title="Prospect research guide" icon="user-magnifying-glass" href="/guides/prospect-research">
     End-to-end workflow for one brand.
   </Card>
   <Card title="Category prospecting" icon="chart-line" href="/guides/category-prospecting">
     Build lists by market and revenue band.
-  </Card>
-  <Card title="IDs & identifiers" icon="fingerprint" href="/concepts/ids">
-    brand_id vs product_id vs ASIN.
   </Card>
   <Card title="API reference" icon="book" href="/api-reference/introduction">
     Every tool's parameters.

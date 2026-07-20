@@ -1,0 +1,135 @@
+---
+title: "MCP setup"
+description: "Add SmartScout as an MCP server in Cursor, Claude, and Codex — same gateway as the REST API."
+icon: "plug"
+---
+
+SmartScout is served from a single gateway that speaks **both MCP and REST**. One API key works for either transport.
+
+| | |
+| --- | --- |
+| **Base URL** | `https://smartscout-mcp.fly.dev` |
+| **MCP URL** | `https://smartscout-mcp.fly.dev/mcp?token=$SMARTSCOUT_API_KEY` |
+| **Auth** | `Authorization: Bearer $SMARTSCOUT_API_KEY` (REST; some MCP clients also accept Bearer) |
+
+Replace `$SMARTSCOUT_API_KEY` with the key issued to you (placeholder form: `ssk_...`). Do not commit real keys.
+
+## Cursor
+
+1. Open **Cursor Settings → MCP**.
+2. Add a server with URL:
+
+```
+https://smartscout-mcp.fly.dev/mcp?token=YOUR_API_KEY
+```
+
+Or, if your Cursor version supports headers on remote MCP servers, use the base MCP URL plus Bearer auth:
+
+```json
+{
+  "mcpServers": {
+    "smartscout": {
+      "url": "https://smartscout-mcp.fly.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+3. Save and confirm the server shows tools (e.g. `smartscout_search_brands`).
+
+<Tip>
+Token-in-query is the most portable form for Cursor. Prefer env substitution (`${env:SMARTSCOUT_API_KEY}`) when your Cursor config supports it so the key never sits in a shared file.
+</Tip>
+
+## Claude (Claude Desktop / Claude Code)
+
+### Claude Desktop (`claude_desktop_config.json`)
+
+```json
+{
+  "mcpServers": {
+    "smartscout": {
+      "url": "https://smartscout-mcp.fly.dev/mcp?token=YOUR_API_KEY"
+    }
+  }
+}
+```
+
+If your Claude build supports remote MCP with headers instead of query tokens:
+
+```json
+{
+  "mcpServers": {
+    "smartscout": {
+      "url": "https://smartscout-mcp.fly.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+### Claude Code
+
+Add a remote MCP server pointing at:
+
+```
+https://smartscout-mcp.fly.dev/mcp?token=YOUR_API_KEY
+```
+
+Restart the client after editing config so tools reload.
+
+## Codex (OpenAI Codex CLI / IDE)
+
+Add SmartScout as a remote MCP server. Prefer the token query form:
+
+```
+https://smartscout-mcp.fly.dev/mcp?token=YOUR_API_KEY
+```
+
+Example config shape (field names may vary by Codex version):
+
+```toml
+[mcp_servers.smartscout]
+url = "https://smartscout-mcp.fly.dev/mcp?token=YOUR_API_KEY"
+```
+
+If your Codex version supports HTTP headers for MCP:
+
+```toml
+[mcp_servers.smartscout]
+url = "https://smartscout-mcp.fly.dev/mcp"
+http_headers = { Authorization = "Bearer YOUR_API_KEY" }
+```
+
+## Same gateway = REST API
+
+You do **not** need a separate REST host. After MCP works, the same key calls:
+
+| Method | Path | Purpose |
+| ------ | ---- | ------- |
+| `GET` | `/api/v1/plugins` | List plugins / accounts |
+| `GET` | `/api/v1/tools` | List or search tools |
+| `GET` | `/api/v1/tools/{name}` | Tool parameter schema |
+| `POST` | `/api/v1/call` | Run one tool |
+| `POST` | `/api/v1/batch` | Run up to 50 tools |
+
+See [Authentication](/authentication) and [Quickstart](/quickstart) for REST examples.
+
+```bash
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tool": "smartscout_search_brands",
+    "params": { "name": "OxiClean", "limit": 5 }
+  }'
+```
+
+## Rate limits
+
+Keys may be rate-limited by plan (for example, a daily request cap). If you hit a limit, wait for the window to reset or use a key with a higher plan allowance.

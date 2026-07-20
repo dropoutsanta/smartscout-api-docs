@@ -20,7 +20,7 @@ Browse subcategories ranked by revenue with brand/ASIN counts and growth.
 ## Example
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"tool": "smartscout_search_subcategories", "params": {"limit": 50}}'

@@ -20,7 +20,7 @@ Sponsored ad win rates by search term for a product (PPC intelligence).
 ## Example
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"tool": "smartscout_search_terms_for_product", "params": {"product_id": 987654, "limit": 50}}'

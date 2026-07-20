@@ -18,7 +18,7 @@ All-in-one brand dossier — profile, history, categories, products, Buy Box, SE
 ## Example
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"tool": "smartscout_brand_report", "params": {"brand_id": 12345, "top_n_products": 7}}'

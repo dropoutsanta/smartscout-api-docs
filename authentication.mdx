@@ -4,31 +4,34 @@ description: "Bearer API keys for REST and MCP access."
 icon: "key"
 ---
 
-All requests use a Bearer token in the `Authorization` header:
+All REST requests use a Bearer token in the `Authorization` header:
 
 ```bash
-curl "$SMARTSCOUT_API_BASE/api/v1/plugins" \
+curl "https://smartscout-mcp.fly.dev/api/v1/plugins" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY"
 ```
 
-You can also pass `?token=YOUR_API_KEY` on GET requests when headers are inconvenient (scripts, browsers). Prefer the header in production.
+For MCP clients, pass the same key as `?token=` on the MCP URL (see [MCP setup](/mcp)). Some clients also accept `Authorization: Bearer`. Prefer the header for REST.
 
-## Credentials you receive
+## Credentials
 
-| Item | Example | Purpose |
-| ---- | ------- | ------- |
-| Base URL | `https://api.example.com` | Host for REST + MCP |
-| API key | `ssk_live_...` | Auth for every call |
+| Item | Value | Purpose |
+| ---- | ----- | ------- |
+| Base URL | `https://smartscout-mcp.fly.dev` | Host for REST + MCP |
+| API key | Issued privately (`ssk_...`) | Auth for every call |
+| MCP URL | `https://smartscout-mcp.fly.dev/mcp?token=$SMARTSCOUT_API_KEY` | MCP clients |
 
 One key covers both:
 
 - **REST** — `POST /api/v1/call`, `/api/v1/batch`, discovery endpoints
-- **MCP** — same key for MCP clients (Cursor, Claude, custom agents)
+- **MCP** — same key for Cursor, Claude, Codex, and other MCP clients
 
-## Calling tools
+Keys are issued privately with your plan. Do not publish production keys in docs, repos, or client-side apps.
+
+## Calling tools (REST)
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -53,10 +56,14 @@ curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
 | `POST` | `/api/v1/call` | Execute one tool |
 | `POST` | `/api/v1/batch` | Execute up to 50 tools in one request |
 
+## Rate limits
+
+API keys can be rate-limited by plan (for example, a daily request cap such as 100 requests/day). Limits are enforced per key.
+
 ## Failure modes
 
 Unauthorized or out-of-scope tools typically return **404** (endpoint appears missing) rather than leaking existence. Invalid JSON returns **400**.
 
 <Warning>
-If a key leaks, rotate it immediately with your account contact. Treat keys like passwords.
+If a key leaks, rotate it immediately. Treat keys like passwords.
 </Warning>

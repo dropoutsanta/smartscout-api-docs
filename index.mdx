@@ -1,18 +1,18 @@
 ---
 title: "SmartScout API"
 sidebarTitle: "Welcome"
-description: "Private Amazon marketplace intelligence — brands, products, Buy Box, SEO, ads, and category analytics via a simple REST API."
+description: "Private Amazon marketplace intelligence — brands, products, Buy Box, SEO, ads, and category analytics via MCP and REST."
 icon: "rocket"
 ---
 
 Programmatic access to Amazon marketplace intelligence: brand revenue, product performance, Buy Box competition, organic ranks, ad win rates, and category sizing.
 
-**\$999 / month** flat — unlimited tool calls on your plan. Base URL and API key are issued when you subscribe.
+**\$999 / month** flat. Gateway: `https://smartscout-mcp.fly.dev` — MCP and REST on the same host, same API key (issued privately).
 
 ## Your first request
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -21,19 +21,28 @@ curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
   }'
 ```
 
-Walk through auth, IDs, and a full brand dossier in the [Quickstart](/quickstart).
+Walk through auth, IDs, and a full brand dossier in the [Quickstart](/quickstart). Add the MCP server in Cursor, Claude, or Codex via [MCP setup](/mcp).
+
+## Gateway
+
+| | |
+| --- | --- |
+| **Base URL** | `https://smartscout-mcp.fly.dev` |
+| **Auth** | `Authorization: Bearer $SMARTSCOUT_API_KEY` |
+| **MCP** | `https://smartscout-mcp.fly.dev/mcp?token=$SMARTSCOUT_API_KEY` |
+| **REST** | `GET /api/v1/plugins`, `GET /api/v1/tools`, `POST /api/v1/call`, `POST /api/v1/batch` |
 
 ## Pricing
 
 | Plan | Price | Includes |
 | ---- | ----- | -------- |
-| SmartScout API | **\$999 / month** | Full tool suite, REST + MCP access, dedicated API key |
+| SmartScout API | **\$999 / month** | Full tool suite, REST + MCP, dedicated API key |
 
-See [Pricing](/pricing) to request access.
+Details on [Pricing](/pricing).
 
 ## All tools
 
-Every call goes through one endpoint: `POST /api/v1/call` with a tool name and params.
+Every REST call goes through one endpoint: `POST /api/v1/call` with a tool name and params. MCP exposes the same tools to agents.
 
 | Tool | Group | What it does |
 | ---- | ----- | ------------ |
@@ -71,11 +80,11 @@ Details in [Authentication](/authentication).
   <Card title="Quickstart" icon="bolt" href="/quickstart">
     Auth → search a brand → pull a full dossier in minutes.
   </Card>
+  <Card title="MCP setup" icon="plug" href="/mcp">
+    Cursor, Claude, and Codex configuration.
+  </Card>
   <Card title="Prospect research" icon="magnifying-glass" href="/guides/prospect-research">
     Name → brand_id → brand_report playbook.
-  </Card>
-  <Card title="Category prospecting" icon="layer-group" href="/guides/category-prospecting">
-    Size a market and list brands above a revenue floor.
   </Card>
   <Card title="API Reference" icon="code" href="/api-reference/introduction">
     Parameters and examples for every tool.

@@ -12,9 +12,10 @@ icon: "tag"
 | **Billing** | Monthly, billed in advance |
 | **Access** | Full SmartScout tool suite |
 | **Transport** | REST (`/api/v1/*`) and MCP |
-| **Limits** | Fair-use concurrency; contact us for high-volume pipelines |
+| **Base URL** | `https://smartscout-mcp.fly.dev` |
+| **Limits** | Plan rate limits (e.g. daily request caps); fair-use concurrency |
 
-No per-call metering on this plan — you pay the flat monthly fee for API access.
+No per-call metering on this plan beyond your key's rate limits — you pay the flat monthly fee for API access.
 
 ## What's included
 
@@ -23,23 +24,24 @@ No per-call metering on this plan — you pay the flat monthly fee for API acces
 - Sponsored search-term / ad win-rate intelligence
 - Category tree, market sizing, leaders, and trends
 - Built-in playbook tool (`smartscout_how_to_use_me`)
-- Dedicated API key + base URL
+- Dedicated API key (issued privately)
 
 ## What's not included
 
 - Contact / email enrichment (this API is Amazon marketplace data only)
 - SmartScout UI seats (API access is separate from any SmartScout web login you may already have)
 
-## Request access
+## Using your key
 
-Email **[access@up2data.ai](mailto:access@up2data.ai)** with:
+Once you have a key, set it and call the gateway:
 
-1. Company name
-2. Intended use case (research, prospecting, internal tooling, etc.)
-3. Approximate monthly call volume
+```bash
+export SMARTSCOUT_API_KEY="ssk_..."
 
-We'll reply with onboarding, your base URL, and API key.
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool":"smartscout_how_to_use_me","params":{}}'
+```
 
-<Tip>
-Already subscribed? Jump to the [Quickstart](/quickstart).
-</Tip>
+For agents, see [MCP setup](/mcp). For scripts, see the [Quickstart](/quickstart).

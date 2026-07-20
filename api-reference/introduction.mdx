@@ -1,10 +1,10 @@
 ---
 title: "API overview"
-description: "How SmartScout tools are invoked over REST."
+description: "How SmartScout tools are invoked over REST (same gateway as MCP)."
 icon: "book"
 ---
 
-All SmartScout operations use the same REST shape:
+All SmartScout operations use the same REST shape on `https://smartscout-mcp.fly.dev`:
 
 ```http
 POST /api/v1/call
@@ -17,12 +17,14 @@ Content-Type: application/json
 }
 ```
 
+The same host also serves MCP at `/mcp` — see [MCP setup](/mcp).
+
 ## Batch
 
 Up to 50 calls per request:
 
 ```bash
-curl -X POST "$SMARTSCOUT_API_BASE/api/v1/batch" \
+curl -X POST "https://smartscout-mcp.fly.dev/api/v1/batch" \
   -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -38,7 +40,7 @@ curl -X POST "$SMARTSCOUT_API_BASE/api/v1/batch" \
 Tools are prefixed with `smartscout_`. Schemas are available at:
 
 ```
-GET /api/v1/tools/smartscout_search_brands
+GET https://smartscout-mcp.fly.dev/api/v1/tools/smartscout_search_brands
 ```
 
 ## Recommended starting points
