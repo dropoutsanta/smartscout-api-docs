@@ -1,0 +1,11 @@
+{
+  "name": "smartscout-api-docs",
+  "private": true,
+  "scripts": {
+    "dev": "npx mintlify@latest dev",
+    "build": "npx mintlify@latest export --output export.zip && rm -rf dist && mkdir dist && unzip -q export.zip -d dist && rm export.zip"
+  },
+  "devDependencies": {
+    "mintlify": "^4.2.684"
+  }
+}

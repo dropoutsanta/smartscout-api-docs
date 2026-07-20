@@ -1,0 +1,24 @@
+---
+title: "product_rank_history"
+description: "Daily history of organic rank shifts across search terms."
+---
+
+`smartscout_product_rank_history`
+
+Daily history of organic rank shifts across search terms.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `product_id` | Yes | Numeric product ID |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_product_rank_history", "params": {"product_id": 987654}}'
+```

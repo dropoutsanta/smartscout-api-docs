@@ -1,0 +1,19 @@
+---
+title: "Marketplaces"
+description: "X-SmartScout marketplace selection via the marketplace param."
+icon: "globe"
+---
+
+Most tools accept `marketplace` (default **`US`**). Pass it in `params`:
+
+```json
+{
+  "tool": "smartscout_search_brands",
+  "params": {
+    "name": "ExampleBrand",
+    "marketplace": "US"
+  }
+}
+```
+
+Use the marketplace that matches the Amazon storefront you're researching. Brand and product IDs are marketplace-scoped — don't reuse a US `brand_id` against another marketplace without re-searching.

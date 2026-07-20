@@ -1,0 +1,25 @@
+---
+title: "product_relevancy"
+description: "Competing products for an ASIN via Amazon relevancy."
+---
+
+`smartscout_product_relevancy`
+
+Competing products for an ASIN via Amazon relevancy.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `asin` | Yes | ASIN string, e.g. B09XYZ123 |
+| `competitors_only` | No | Default true |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_product_relevancy", "params": {"asin": "B09XYZ123"}}'
+```

@@ -1,0 +1,73 @@
+---
+title: "Prospect research"
+description: "Research one Amazon brand end-to-end for outreach or diligence."
+icon: "user-magnifying-glass"
+---
+
+Goal: turn a company or brand name into a structured intelligence brief.
+
+## Workflow
+
+```mermaid
+flowchart LR
+  A[Name or website] --> B[search_brands]
+  B --> C[brand_id]
+  C --> D[brand_report]
+  D --> E[Formatted brief]
+```
+
+### 1. Find the brand
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tool": "smartscout_search_brands",
+    "params": { "name": "Dominator", "limit": 10 }
+  }'
+```
+
+If nothing useful returns:
+
+- The Amazon brand may differ from the legal entity name
+- Check their website / Amazon storefront for product brand strings
+- Retry `search_brands` with those names
+
+### 2. Pull the dossier
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tool": "smartscout_brand_report",
+    "params": { "brand_id": 12345, "top_n_products": 7 }
+  }'
+```
+
+Prefer this over chaining `get_brand` + `brand_history` + `search_products` + … for the same brief.
+
+### 3. Dig into a product (optional)
+
+```bash
+# Find ASINs / product_ids
+# tool: smartscout_search_products  params: { "brand_id": 12345, "limit": 20 }
+
+# Buy Box
+# tool: smartscout_product_sellers  params: { "product_id": 987654 }
+
+# Organic SEO snapshot
+# tool: smartscout_product_organic_ranks  params: { "product_id": 987654 }
+```
+
+## Suggested brief outline
+
+- **Brand overview** — revenue, units, products, score, reviews, ad spend, growth
+- **Category mix** — where revenue comes from
+- **Top products** — ASIN, revenue, price, sellers
+- **Distribution** — 3P coverage highlights
+- **SEO / ads** — notable search terms and win rates
+- **Key takeaways** — 3–5 bullets for a sales or diligence conversation
+
+Call `smartscout_how_to_use_me` for the full built-in playbook and report template.

@@ -1,0 +1,28 @@
+---
+title: "brand_tailored_report"
+description: "Check whether a pre-generated tailored report is ready (ASIN coverage / freshness)."
+---
+
+`smartscout_brand_tailored_report`
+
+Check whether a pre-generated tailored report is ready (ASIN coverage / freshness).
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | Yes | Numeric brand ID |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_brand_tailored_report", "params": {"brand_id": 12345}}'
+```
+
+## Notes
+
+- Rarely needed — brand_report already includes tailored-report context.

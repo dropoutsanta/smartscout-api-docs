@@ -1,0 +1,50 @@
+---
+title: "API overview"
+description: "How SmartScout tools are invoked over REST."
+icon: "book"
+---
+
+All SmartScout operations use the same REST shape:
+
+```http
+POST /api/v1/call
+Authorization: Bearer <api_key>
+Content-Type: application/json
+
+{
+  "tool": "smartscout_<name>",
+  "params": { ... }
+}
+```
+
+## Batch
+
+Up to 50 calls per request:
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/batch" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "calls": [
+      { "tool": "smartscout_search_brands", "params": { "name": "OxiClean" } },
+      { "tool": "smartscout_subcategories", "params": {} }
+    ]
+  }'
+```
+
+## Tool naming
+
+Tools are prefixed with `smartscout_`. Schemas are available at:
+
+```
+GET /api/v1/tools/smartscout_search_brands
+```
+
+## Recommended starting points
+
+| Goal | Tool |
+| ---- | ---- |
+| Learn the API | `smartscout_how_to_use_me` |
+| Research one brand | `smartscout_search_brands` → `smartscout_brand_report` |
+| Build a category list | `smartscout_search_subcategories` → `smartscout_search_brands` |

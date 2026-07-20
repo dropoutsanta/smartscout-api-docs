@@ -1,0 +1,85 @@
+---
+title: "Category prospecting"
+description: "Build brand lists by Amazon category and monthly revenue."
+icon: "chart-line"
+---
+
+Goal: list brands in a market segment above (or within) a revenue band.
+
+## Workflow
+
+### 1. Size the market / get a subcategory ID
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tool": "smartscout_search_subcategories",
+    "params": { "limit": 50, "sort_by": "totalMonthlyRevenue" }
+  }'
+```
+
+Or start from the tree:
+
+```json
+{ "tool": "smartscout_subcategories", "params": {} }
+```
+
+### 2. Filter brands (no name)
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tool": "smartscout_search_brands",
+    "params": {
+      "subcategory_id": 3375251,
+      "min_revenue": 1000000,
+      "limit": 25
+    }
+  }'
+```
+
+**Do not** pass `name` when browsing a category — name mode and browse mode are different.
+
+### 3. Page for more coverage
+
+If `coverage.has_more` is true:
+
+```json
+{
+  "tool": "smartscout_search_brands",
+  "params": {
+    "subcategory_id": 3375251,
+    "min_revenue": 1000000,
+    "start_page": 20,
+    "scan_pages": 30
+  }
+}
+```
+
+Stop when `has_more` is false or new brands per page drop off.
+
+### 4. Deep-dive interesting brands
+
+```json
+{
+  "tool": "smartscout_brand_report",
+  "params": { "brand_id": 12345, "top_n_products": 5 }
+}
+```
+
+## Examples
+
+| Ask | Params |
+| --- | ------ |
+| Outdoor brands over \$10M/mo | `subcategory_id` for Outdoor, `min_revenue=10000000` |
+| Pet brands \$500K–\$5M/year | Convert to monthly: `min_revenue=41667`, `max_revenue=416667` |
+| Home & Kitchen leaders | `search_subcategories` → pick ID → `subcategory_brands` or `search_brands` |
+
+## Related tools
+
+- `smartscout_subcategory_brands` — leaders with revenue over time
+- `smartscout_subcategory_history` — is the category growing or seasonal?

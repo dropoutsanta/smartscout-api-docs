@@ -1,0 +1,36 @@
+---
+title: "search_products"
+description: "Search/list products by brand, category, ASIN, or title. Returns product id for downstream tools."
+---
+
+`smartscout_search_products`
+
+Search/list products by brand, category, ASIN, or title. Returns product id for downstream tools.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | No* | Filter by brand |
+| `category_id` | No* | Filter by category |
+| `subcategory_id` | No* | Filter by subcategory |
+| `asin` | No* | Exact ASIN |
+| `title` | No* | Title keyword |
+| `sort_by` | No | Default `monthlyRevenueEstimate` |
+| `sort_dir` | No | Sort direction |
+| `limit` | No | 1–100 |
+| `offset` | No | Offset |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_search_products", "params": {"brand_id": 12345, "limit": 20}}'
+```
+
+<Tip>
+Save the numeric `id` from each row — product_sellers and rank tools need product_id, not ASIN.
+</Tip>

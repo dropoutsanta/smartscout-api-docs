@@ -1,0 +1,31 @@
+---
+title: "search_terms_for_product"
+description: "Sponsored ad win rates by search term for a product (PPC intelligence)."
+---
+
+`smartscout_search_terms_for_product`
+
+Sponsored ad win rates by search term for a product (PPC intelligence).
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `product_id` | Yes | Numeric product ID |
+| `sort_by` | No | Sort field |
+| `sort_dir` | No | Sort direction |
+| `limit` | No | Default 100 |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_search_terms_for_product", "params": {"product_id": 987654, "limit": 50}}'
+```
+
+## Notes
+
+- Organic positions live in product_organic_ranks — this tool is ad/PPC focused.

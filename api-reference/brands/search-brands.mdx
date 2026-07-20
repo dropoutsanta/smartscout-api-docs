@@ -1,0 +1,44 @@
+---
+title: "search_brands"
+description: "Find brands by name, or browse by category + monthly revenue."
+---
+
+`smartscout_search_brands`
+
+Find brands by name, or browse by category + monthly revenue.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `name` | No* | Partial brand name match (name mode) |
+| `subcategory_id` | No* | Category filter; works with parent or child IDs (browse mode) |
+| `min_revenue` | No | Minimum monthly revenue USD |
+| `max_revenue` | No | Maximum monthly revenue USD |
+| `count_only` | No | Fast approximate count + preview without full enrichment |
+| `scan_pages` | No | Pages of 100 products to scan (1–50, default 20) |
+| `start_page` | No | Continue from a previous coverage.continue_with |
+| `sort_by` | No | Default `monthlyRevenue` |
+| `sort_dir` | No | Sort direction |
+| `limit` | No | 1–200 results |
+| `offset` | No | Pagination offset |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_search_brands", "params": {"name": "OxiClean", "limit": 5}}'
+```
+
+<Tip>
+For prospecting lists, never pass `name` — use subcategory + min_revenue.
+</Tip>
+
+## Notes
+
+- Name mode: pass `name`. Browse mode: omit `name`, pass `subcategory_id` + revenue filters.
+- Yearly amounts must be converted to monthly (÷ 12).
+- Browse responses include a `coverage` object for paging deeper scans.

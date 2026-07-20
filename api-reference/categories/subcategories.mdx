@@ -1,0 +1,27 @@
+---
+title: "subcategories"
+description: "Top-level Amazon category tree (names + IDs)."
+---
+
+`smartscout_subcategories`
+
+Top-level Amazon category tree (names + IDs).
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_subcategories", "params": {}}'
+```
+
+<Tip>
+For revenue/growth stats use search_subcategories.
+</Tip>

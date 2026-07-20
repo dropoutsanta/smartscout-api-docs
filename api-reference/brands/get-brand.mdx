@@ -1,0 +1,28 @@
+---
+title: "get_brand"
+description: "Full brand snapshot (~30 fields): revenue, growth, products, score, ads, storefront."
+---
+
+`smartscout_get_brand`
+
+Full brand snapshot (~30 fields): revenue, growth, products, score, ads, storefront.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | Yes | Numeric brand ID from search_brands |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_get_brand", "params": {"brand_id": 12345}}'
+```
+
+<Tip>
+For a complete research packet, prefer brand_report instead of chaining get_brand with other tools.
+</Tip>

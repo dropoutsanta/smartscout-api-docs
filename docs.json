@@ -1,0 +1,147 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "SmartScout API",
+  "description": "Private Amazon marketplace intelligence API — brands, products, Buy Box, SEO, ads, and category analytics.",
+  "colors": {
+    "primary": "#FF9900",
+    "light": "#FFB84D",
+    "dark": "#E88B00"
+  },
+  "logo": {
+    "light": "/logo/logo.svg",
+    "dark": "/logo/logo-dark.svg"
+  },
+  "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "dark"
+  },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "cursor"]
+  },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#0B0F14"
+    },
+    "decoration": "gradient"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Pricing",
+        "href": "/pricing"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Request access",
+      "href": "/pricing"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "quickstart",
+              "authentication",
+              "pricing",
+              "errors"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "concepts/ids",
+              "concepts/revenue",
+              "concepts/marketplaces"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/prospect-research",
+              "guides/category-prospecting"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/how-to-use-me"
+            ]
+          },
+          {
+            "group": "Brands",
+            "pages": [
+              "api-reference/brands/search-brands",
+              "api-reference/brands/get-brand",
+              "api-reference/brands/brand-report",
+              "api-reference/brands/brand-history",
+              "api-reference/brands/brand-history-by-category",
+              "api-reference/brands/brand-coverage",
+              "api-reference/brands/brand-tailored-report"
+            ]
+          },
+          {
+            "group": "Products",
+            "pages": [
+              "api-reference/products/search-products",
+              "api-reference/products/product-sellers",
+              "api-reference/products/product-history",
+              "api-reference/products/product-organic-ranks",
+              "api-reference/products/product-rank-history",
+              "api-reference/products/product-relevancy"
+            ]
+          },
+          {
+            "group": "Ads & SEO",
+            "pages": [
+              "api-reference/ads/search-terms-for-product"
+            ]
+          },
+          {
+            "group": "Categories",
+            "pages": [
+              "api-reference/categories/subcategories",
+              "api-reference/categories/search-subcategories",
+              "api-reference/categories/subcategory-brands",
+              "api-reference/categories/subcategory-history"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "links": [
+      {
+        "header": "Product",
+        "items": [
+          {
+            "label": "Pricing",
+            "href": "/pricing"
+          },
+          {
+            "label": "Quickstart",
+            "href": "/quickstart"
+          },
+          {
+            "label": "API reference",
+            "href": "/api-reference/introduction"
+          }
+        ]
+      }
+    ]
+  }
+}

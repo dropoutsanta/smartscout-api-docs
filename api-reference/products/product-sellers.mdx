@@ -1,0 +1,24 @@
+---
+title: "product_sellers"
+description: "Buy Box sellers for a product: price, win %, FBA, estimated monthly revenue."
+---
+
+`smartscout_product_sellers`
+
+Buy Box sellers for a product: price, win %, FBA, estimated monthly revenue.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `product_id` | Yes | Numeric ID from search_products |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_product_sellers", "params": {"product_id": 987654}}'
+```

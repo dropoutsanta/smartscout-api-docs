@@ -1,0 +1,143 @@
+---
+title: "Quickstart"
+description: "From API key to a full brand dossier in a few minutes."
+icon: "bolt"
+---
+
+<Steps>
+  <Step title="Get your credentials">
+    After you subscribe (\$999/mo), you receive:
+
+    - **Base URL** — e.g. `https://api.example.com`
+    - **API key** — Bearer token for all requests
+
+    ```bash
+    export SMARTSCOUT_API_BASE="https://api.example.com"   # issued at signup
+    export SMARTSCOUT_API_KEY="ssk_live_..."               # issued at signup
+    ```
+
+    <Warning>Keep keys server-side. Never ship them in browser or mobile apps.</Warning>
+  </Step>
+
+  <Step title="Search for a brand">
+    Resolve a company/brand name to a numeric `brand_id`:
+
+    <CodeGroup>
+
+    ```bash cURL
+    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+      -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "tool": "smartscout_search_brands",
+        "params": { "name": "OxiClean", "limit": 5 }
+      }'
+    ```
+
+    ```python Python
+    import os, requests
+
+    BASE = os.environ["SMARTSCOUT_API_BASE"]
+    HEADERS = {"Authorization": f"Bearer {os.environ['SMARTSCOUT_API_KEY']}"}
+
+    r = requests.post(
+        f"{BASE}/api/v1/call",
+        headers=HEADERS,
+        json={
+            "tool": "smartscout_search_brands",
+            "params": {"name": "OxiClean", "limit": 5},
+        },
+    )
+    brands = r.json()
+    print(brands)
+    ```
+
+    ```javascript Node
+    const BASE = process.env.SMARTSCOUT_API_BASE;
+    const headers = {
+      Authorization: `Bearer ${process.env.SMARTSCOUT_API_KEY}`,
+      "Content-Type": "application/json",
+    };
+
+    const res = await fetch(`${BASE}/api/v1/call`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        tool: "smartscout_search_brands",
+        params: { name: "OxiClean", limit: 5 },
+      }),
+    });
+    console.log(await res.json());
+    ```
+
+    </CodeGroup>
+
+    <Tip>
+      Corporate names often differ from Amazon brand names (e.g. Church &amp; Dwight → OxiClean).
+      If a name search misses, try the product brand from their storefront.
+    </Tip>
+  </Step>
+
+  <Step title="Pull the full dossier">
+    Prefer **one** `brand_report` call over many small tools:
+
+    ```bash
+    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+      -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "tool": "smartscout_brand_report",
+        "params": {
+          "brand_id": 12345,
+          "top_n_products": 7
+        }
+      }'
+    ```
+
+    That returns profile, history, category mix, top products, Buy Box sellers, organic ranks, ad win rates, seller coverage, competitors, and subcategory context — compressed for LLM / report use.
+  </Step>
+
+  <Step title="Browse a category (optional)">
+    Find brands by market + monthly revenue instead of name:
+
+    ```bash
+    # 1) Find category ID
+    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+      -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"tool":"smartscout_search_subcategories","params":{"limit":50}}'
+
+    # 2) Brands above $1M / month in that category
+    curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+      -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "tool": "smartscout_search_brands",
+        "params": {
+          "subcategory_id": 3375251,
+          "min_revenue": 1000000,
+          "limit": 25
+        }
+      }'
+    ```
+
+    Revenue filters are **monthly**. Convert yearly ÷ 12 (e.g. \$5M/year → `min_revenue=416667`).
+  </Step>
+</Steps>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Prospect research guide" icon="user-magnifying-glass" href="/guides/prospect-research">
+    End-to-end workflow for one brand.
+  </Card>
+  <Card title="Category prospecting" icon="chart-line" href="/guides/category-prospecting">
+    Build lists by market and revenue band.
+  </Card>
+  <Card title="IDs & identifiers" icon="fingerprint" href="/concepts/ids">
+    brand_id vs product_id vs ASIN.
+  </Card>
+  <Card title="API reference" icon="book" href="/api-reference/introduction">
+    Every tool's parameters.
+  </Card>
+</CardGroup>

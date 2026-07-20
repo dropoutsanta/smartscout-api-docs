@@ -1,0 +1,27 @@
+---
+title: "brand_history_by_category"
+description: "How a brand's revenue splits across Amazon subcategories over time."
+---
+
+`smartscout_brand_history_by_category`
+
+How a brand's revenue splits across Amazon subcategories over time.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | Yes | Numeric brand ID |
+| `start_date` | No | ISO start date |
+| `end_date` | No | ISO end date |
+| `limit` | No | Number of categories (default 10) |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_brand_history_by_category", "params": {"brand_id": 12345, "limit": 10}}'
+```

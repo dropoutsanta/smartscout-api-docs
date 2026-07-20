@@ -1,0 +1,29 @@
+---
+title: "brand_report"
+description: "All-in-one brand dossier — profile, history, categories, products, Buy Box, SEO, ads, sellers, competitors."
+---
+
+`smartscout_brand_report`
+
+All-in-one brand dossier — profile, history, categories, products, Buy Box, SEO, ads, sellers, competitors.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | Yes | Numeric brand ID |
+| `top_n_products` | No | Default 5, max 10 |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_brand_report", "params": {"brand_id": 12345, "top_n_products": 7}}'
+```
+
+<Tip>
+Preferred call for prospect research. Faster and cheaper than many individual tools.
+</Tip>

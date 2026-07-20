@@ -1,0 +1,24 @@
+---
+title: "subcategory_brands"
+description: "Top brands within a subcategory with revenue over time."
+---
+
+`smartscout_subcategory_brands`
+
+Top brands within a subcategory with revenue over time.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `subcategory_id` | Yes | From subcategories or search_subcategories |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_subcategory_brands", "params": {"subcategory_id": 3375251}}'
+```

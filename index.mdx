@@ -1,0 +1,83 @@
+---
+title: "SmartScout API"
+sidebarTitle: "Welcome"
+description: "Private Amazon marketplace intelligence — brands, products, Buy Box, SEO, ads, and category analytics via a simple REST API."
+icon: "rocket"
+---
+
+Programmatic access to Amazon marketplace intelligence: brand revenue, product performance, Buy Box competition, organic ranks, ad win rates, and category sizing.
+
+**\$999 / month** flat — unlimited tool calls on your plan. Base URL and API key are issued when you subscribe.
+
+## Your first request
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tool": "smartscout_search_brands",
+    "params": { "name": "OxiClean", "limit": 5 }
+  }'
+```
+
+Walk through auth, IDs, and a full brand dossier in the [Quickstart](/quickstart).
+
+## Pricing
+
+| Plan | Price | Includes |
+| ---- | ----- | -------- |
+| SmartScout API | **\$999 / month** | Full tool suite, REST + MCP access, dedicated API key |
+
+See [Pricing](/pricing) to request access.
+
+## All tools
+
+Every call goes through one endpoint: `POST /api/v1/call` with a tool name and params.
+
+| Tool | Group | What it does |
+| ---- | ----- | ------------ |
+| `smartscout_how_to_use_me` | Guide | Built-in playbooks and tool overview |
+| `smartscout_search_brands` | Brands | Find brands by name or category + revenue |
+| `smartscout_get_brand` | Brands | Full brand snapshot (~30 fields) |
+| `smartscout_brand_report` | Brands | **All-in-one dossier** (preferred for research) |
+| `smartscout_brand_history` | Brands | Weekly revenue / units / price trends |
+| `smartscout_brand_history_by_category` | Brands | Revenue mix by subcategory over time |
+| `smartscout_brand_coverage` | Brands | 3P seller distribution for a brand |
+| `smartscout_brand_tailored_report` | Brands | Pre-generated report freshness check |
+| `smartscout_search_products` | Products | Search products by brand, ASIN, title, category |
+| `smartscout_product_sellers` | Products | Buy Box sellers for a product |
+| `smartscout_product_history` | Products | Weekly product performance time-series |
+| `smartscout_product_organic_ranks` | Products | Current organic search ranks |
+| `smartscout_product_rank_history` | Products | Daily organic rank changes |
+| `smartscout_product_relevancy` | Products | Competing ASINs by relevancy |
+| `smartscout_search_terms_for_product` | Ads | Sponsored ad win rates by search term |
+| `smartscout_subcategories` | Categories | Top-level category tree (names + IDs) |
+| `smartscout_search_subcategories` | Categories | Market sizing with revenue & growth stats |
+| `smartscout_subcategory_brands` | Categories | Top brands in a subcategory |
+| `smartscout_subcategory_history` | Categories | Category revenue / units trends |
+
+## Authentication
+
+```bash
+-H "Authorization: Bearer $SMARTSCOUT_API_KEY"
+```
+
+Details in [Authentication](/authentication).
+
+## Explore
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="bolt" href="/quickstart">
+    Auth → search a brand → pull a full dossier in minutes.
+  </Card>
+  <Card title="Prospect research" icon="magnifying-glass" href="/guides/prospect-research">
+    Name → brand_id → brand_report playbook.
+  </Card>
+  <Card title="Category prospecting" icon="layer-group" href="/guides/category-prospecting">
+    Size a market and list brands above a revenue floor.
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/introduction">
+    Parameters and examples for every tool.
+  </Card>
+</CardGroup>

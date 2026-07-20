@@ -1,0 +1,27 @@
+---
+title: "search_subcategories"
+description: "Browse subcategories ranked by revenue with brand/ASIN counts and growth."
+---
+
+`smartscout_search_subcategories`
+
+Browse subcategories ranked by revenue with brand/ASIN counts and growth.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `sort_by` | No | Default `totalMonthlyRevenue` |
+| `sort_dir` | No | Sort direction |
+| `limit` | No | 1–100 |
+| `offset` | No | Offset |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_search_subcategories", "params": {"limit": 50}}'
+```

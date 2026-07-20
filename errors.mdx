@@ -1,0 +1,48 @@
+---
+title: "Errors"
+description: "How failures are returned from the API."
+icon: "triangle-exclamation"
+---
+
+## HTTP status codes
+
+| Status | Meaning |
+| ------ | ------- |
+| `200` | Tool ran; body is the tool result (may still contain an application-level `_error` or `error` field) |
+| `400` | Invalid JSON body or bad batch payload |
+| `404` | Missing/invalid auth, or tool not visible to your key |
+| `5xx` | Transient upstream or server error — retry with backoff |
+
+## Application-level errors
+
+Some tools return `200` with an error object when credentials, IDs, or filters are wrong:
+
+```json
+{
+  "error": "Missing credentials for 'default'."
+}
+```
+
+or
+
+```json
+{
+  "_error": "Client error '404 Not Found' for url '...'"
+}
+```
+
+Always check for `error` / `_error` in the JSON body before assuming success.
+
+## Common mistakes
+
+| Symptom | Fix |
+| ------- | --- |
+| Empty brand search by corporate name | Search the **Amazon brand** name from the storefront |
+| No brands in category browse | Use **monthly** revenue (`yearly / 12`); pass `subcategory_id` without `name` |
+| `product_sellers` fails | Pass numeric `product_id` from `search_products`, not the ASIN string |
+| Unexpected marketplace | Set `marketplace` (default `US`) — see [Marketplaces](/concepts/marketplaces) |
+| Partial brand lists | Read `coverage.has_more` and continue with `start_page` |
+
+## Retries
+
+Retry `5xx` and network timeouts with exponential backoff (e.g. 1s → 2s → 4s). Do not blindly retry on `404` — that usually means auth or permissions.

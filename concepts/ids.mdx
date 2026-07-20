@@ -1,0 +1,33 @@
+---
+title: "IDs & identifiers"
+description: "brand_id, product_id, ASIN, and subcategory_id — which to use where."
+icon: "fingerprint"
+---
+
+SmartScout uses several IDs. Mixing them up is the most common integration mistake.
+
+| Identifier | Type | Example | Used by |
+| ---------- | ---- | ------- | ------- |
+| `brand_id` | integer | `12345` | Brand tools, `search_products(brand_id=…)` |
+| `product_id` | integer | `987654` | `product_sellers`, `product_history`, ranks, ads |
+| `asin` | string | `B09XYZ123` | `search_products`, `product_relevancy` |
+| `subcategory_id` | integer | `3375251` | Category filters & category tools |
+
+## brand_id
+
+Resolve with `smartscout_search_brands` (by `name` or by category filters). Required for `get_brand`, `brand_report`, history, coverage, etc.
+
+## product_id vs ASIN
+
+- **ASIN** — Amazon's public product code (string). Good for lookup and relevancy.
+- **product_id** — SmartScout's internal numeric ID. Required for sellers, history, organic ranks, and ad tools.
+
+Flow:
+
+```
+search_products(asin="B09…")  →  response includes id  →  product_sellers(product_id=id)
+```
+
+## subcategory_id
+
+From `smartscout_subcategories` (tree) or `smartscout_search_subcategories` (ranked by revenue). Parent category IDs often work in `search_brands` and expand to child categories.

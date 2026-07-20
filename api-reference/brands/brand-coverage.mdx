@@ -1,0 +1,28 @@
+---
+title: "brand_coverage"
+description: "Which 3P sellers carry the brand and estimated revenue per seller."
+---
+
+`smartscout_brand_coverage`
+
+Which 3P sellers carry the brand and estimated revenue per seller.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | Yes | Numeric brand ID |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_brand_coverage", "params": {"brand_id": 12345}}'
+```
+
+## Notes
+
+- Different from product_sellers, which is Buy Box competition on one ASIN.

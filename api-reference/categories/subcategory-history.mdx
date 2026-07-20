@@ -1,0 +1,24 @@
+---
+title: "subcategory_history"
+description: "Revenue/units time-series for an entire subcategory."
+---
+
+`smartscout_subcategory_history`
+
+Revenue/units time-series for an entire subcategory.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `subcategory_id` | Yes | Subcategory ID |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_subcategory_history", "params": {"subcategory_id": 3375251}}'
+```

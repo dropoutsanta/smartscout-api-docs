@@ -1,0 +1,27 @@
+---
+title: "how_to_use_me"
+description: "Built-in guide: every tool, when to use it, and step-by-step playbooks."
+---
+
+`smartscout_how_to_use_me`
+
+Built-in guide: every tool, when to use it, and step-by-step playbooks.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `marketplace` | No | Amazon marketplace (default `US`) |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_how_to_use_me", "params": {}}'
+```
+
+<Tip>
+Call this first when integrating or building an agent — it returns playbooks for prospect research and category prospecting.
+</Tip>

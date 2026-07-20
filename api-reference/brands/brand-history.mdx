@@ -1,0 +1,30 @@
+---
+title: "brand_history"
+description: "Weekly time-series of brand revenue, units, and avg Buy Box price."
+---
+
+`smartscout_brand_history`
+
+Weekly time-series of brand revenue, units, and avg Buy Box price.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `brand_id` | Yes | Numeric brand ID |
+| `start_date` | No | ISO date, default 2024-01-01 |
+| `supercharged` | No | Default true |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_brand_history", "params": {"brand_id": 12345, "start_date": "2024-01-01"}}'
+```
+
+## Notes
+
+- For category-level breakdown use brand_history_by_category.

@@ -1,0 +1,26 @@
+---
+title: "product_organic_ranks"
+description: "Current organic search terms and ranks for a product."
+---
+
+`smartscout_product_organic_ranks`
+
+Current organic search terms and ranks for a product.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `product_id` | Yes | Numeric product ID |
+| `exclude_ads` | No | Default true |
+| `exclude_rank_history` | No | Default true |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_product_organic_ranks", "params": {"product_id": 987654}}'
+```

@@ -1,0 +1,25 @@
+---
+title: "product_history"
+description: "Weekly Buy Box price, revenue, units, and sales rank for one or more products."
+---
+
+`smartscout_product_history`
+
+Weekly Buy Box price, revenue, units, and sales rank for one or more products.
+
+## Parameters
+
+| Name | Required | Description |
+| ---- | -------- | ----------- |
+| `product_ids` | Yes | List of numeric product IDs (batch ~10) |
+| `start_date` | No | ISO date, default 2025-01-01 |
+| `marketplace` | No | Default `US` |
+
+## Example
+
+```bash
+curl -X POST "$SMARTSCOUT_API_BASE/api/v1/call" \
+  -H "Authorization: Bearer $SMARTSCOUT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "smartscout_product_history", "params": {"product_ids": [987654], "start_date": "2025-01-01"}}'
+```

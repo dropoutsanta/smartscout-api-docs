@@ -1,0 +1,36 @@
+---
+title: "Revenue units"
+description: "All revenue filters and most brand stats are monthly USD."
+icon: "dollar-sign"
+---
+
+Unless a field is explicitly labeled TTM (trailing twelve months) or yearly, treat money as **monthly USD**.
+
+## Converting yearly → monthly
+
+| User says | Use |
+| --------- | --- |
+| \$5M / year | `min_revenue=416667` |
+| \$10M / year | `min_revenue=833333` |
+| \$1M / month | `min_revenue=1000000` |
+| \$500K–\$5M / year | `min_revenue=41667`, `max_revenue=416667` |
+
+## Where it appears
+
+- `search_brands` — `min_revenue` / `max_revenue` are monthly
+- Brand profile — monthly revenue, MoM/YoY growth, TTM when provided
+- Products — monthly revenue estimates
+- Categories — total monthly revenue for the subcategory
+
+## Coverage when browsing
+
+Category brand searches scan product pages under the hood. Responses include a `coverage` object:
+
+| Field | Meaning |
+| ----- | ------- |
+| `products_scanned` | How many products were scanned |
+| `unique_brands_found` | Distinct brands after filters |
+| `has_more` | More pages available |
+| `continue_with` | Suggested `start_page` for the next call |
+
+Increase `scan_pages` (default 20, max 50) or page with `start_page` until `has_more` is false or new brands taper off.
